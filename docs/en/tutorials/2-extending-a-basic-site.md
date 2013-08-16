@@ -22,7 +22,7 @@ The second will be a *Staff* section, to demonstrate more complex database struc
 
 ## The SilverStripe data model
 
-A large part of designing complex SilverStripe sites is the creation of our own page types. Before we progress any further, it is important to understand what a page type is and how the SilverStripe data model works.
+A large part of designing complex SilverStripe sites is the creation of our own page types. Before we progress any further, it is important to understand what a page type is, and how the SilverStripe data model works.
 
 SilverStripe is based on the **"Model-View-Controller"** design pattern. This means that SilverStripe attempts to separate data, logic and presentation as much as possible. Every page has three separate parts which are combined to give you the
 final page. Lets look at each one individually:
@@ -69,7 +69,7 @@ We'll start with the *ArticlePage* page type. First we create the model, a class
 	 
 
 
-Here we've created our data object/controller pair, but we haven't extended them at all. Don't worry about the *$db* and *$has_one* arrays just yet, we'll explain them shortly. SilverStripe will use the template for the *Page* page type as explained in the first tutorial, so we don't need
+Here we've created our data object/controller pair, but we haven't extended them at all. SilverStripe will use the template for the *Page* page type as explained in the first tutorial, so we don't need
 to specifically create the view for this page type.
 
 Let's create the *ArticleHolder* page type.
@@ -100,8 +100,8 @@ page type "News", it would conflict with the page name also called "News".
 
 ## Adding date and author fields
 
-Now that we have an *ArticlePage* page type, let's make it a little more useful. Remember the *$db* array? We can use
-this array to add extra fields to the database. It would be nice to know when each article was posted, and who posted
+Now that we have an *ArticlePage* page type, let's make it a little more useful. We can use
+a *$db* array to add extra fields to the database. It would be nice to know when each article was posted, and who posted
 it. Add a *$db* property definition in the *ArticlePage* class:
 
 	:::php
@@ -166,7 +166,7 @@ We can then add our new fields with *addFieldToTab*. The first argument is the t
 "Root.Main" is the tab which the content editor is on. The second argument is the field to add; this is not a database field, but a `[api:FormField]` - see the documentation for more details. 
 
 <div class="hint" markdown="1">
-Note: By default, the CMS only has one tab. Creating new tabs is much like adding to existing tabs. For instance: `$fields->addFieldToTab('Root.NewTab', new TextField('Author'));`
+Note: By default, the CMS has only one tab. Creating new tabs is much like adding to existing tabs. For instance: `$fields->addFieldToTab('Root.NewTab', new TextField('Author'));`
 would create a new tab called "New Tab", and a single "Author" textfield inside.
 </div>
 
@@ -179,7 +179,7 @@ There are many more fields available in the default installation, listed in ["fo
 
 Finally, we return the fields to the CMS. If we flush the cache (by adding ?flush=1 at the end of the URL), we will be able to edit the fields in the CMS.
 
-Now that we have created our page types, let's add some content. Go into the CMS and create an *ArticleHolder* page named "News", then create a few *ArticlePage*'s within it.
+Now that we have created our page types, let's add some content. Go into the CMS and create an *ArticleHolder* page named "News", then create a few *ArticlePage*s within it.
 
 ![](_images/tutorial2_news-cms.jpg)
 
@@ -188,7 +188,7 @@ Now that we have created our page types, let's add some content. Go into the CMS
 At the moment, your date field will look just like a text field. 
 This makes it confusing and doesn't give the user much help when adding a date. 
 
-To make the date field a bit more user friendly, you can add a dropdown calendar, set the date format and add better title. By default,
+To make the date field a bit more user friendly, you can add a dropdown calendar, set the date format and add a better title. By default,
 the date field will have the date format defined by your locale.
 
 	:::php
@@ -307,7 +307,7 @@ We can make our templates more modular and easier to maintain by separating comm
 
 We'll separate the display of linked articles as we want to reuse this code later on.
 
-Cut the code between "loop Children" in *ArticleHolder.ss** and replace it with an include statement:
+Cut the code between "loop Children" in **ArticleHolder.ss** and replace it with an include statement:
 
 **themes/simple/templates/Layout/ArticleHolder.ss**
 
@@ -318,7 +318,7 @@ Cut the code between "loop Children" in *ArticleHolder.ss** and replace it with 
 	<% end_loop %>
 	...
 
-Paste the code that was in ArticleHolder into a new include file called ArticleTeaser.ss:
+Paste the code that was in *ArticleHolder.ss* into a new include file called *ArticleTeaser.ss*:
 
 **themes/simple/templates/Includes/ArticleTeaser.ss**
 
@@ -335,13 +335,13 @@ Let's now make a purely cosmetic change that nevertheless helps to make the info
 Add the following field to the *ArticleHolder* and *ArticlePage* classes:
 
 	:::php
-	static $icon = "framework/docs/en/tutorials/_images/treeicons/news-file.gif";
+	static $icon = "themes/simple/images/treeicons/news-file.gif";
 
 
 And this one to the *HomePage* class:
 
 	:::php
-	static $icon = "framework/docs/en/tutorials/_images/treeicons/home-file.gif";
+	static $icon = "themes/simple/images/treeicons/home-file.gif";
 
 
 This will change the icons for the pages in the CMS.  
@@ -362,7 +362,7 @@ It would be nice to greet page visitors with a summary of the latest news when t
 	}
 
 
-This function simply runs a database query that gets the latest news articles from the database. By default, this is five, but you can change it by passing a number to the function. See the [Data Model](../topics/datamodel) documentation for details. We can reference this function as a page control in our *HomePage* template:
+This function simply runs a database query that gets the latest news articles from the database. By default, this is five, but you can change it by passing a number to the function. See the [Data Model](../topics/datamodel) documentation for details. We can reference this function as a page control in our *HomePage.ss* template:
 
 **themes/simple/templates/Layout/Homepage.ss**
 
@@ -375,9 +375,9 @@ This function simply runs a database query that gets the latest news articles fr
 	<% end_loop %>
 
 
-When SilverStripe comes across a variable or page control it doesn't recognize, it first passes control to the controller. If the controller doesn't have a function for the variable or page control, it then passes control to the data object. If it has no matching functions, it then searches its database fields. Failing that it will return nothing.
+When SilverStripe comes across a variable or page control it doesn't recognize, it first passes control to the controller. If the controller doesn't have a function for the variable or page control, it then passes control to the data object. If it has no matching functions, it then searches its database fields. Failing that, it will return nothing.
 
-The controller for a page is only created when page is actually visited, while the data object is available when the page is referenced in other pages, e.g. by page controls. A good rule of thumb is to put all functions specific to the page currently being viewed in the controller; only if a function needs to be used in another page should you put it in the data object.
+The controller for a page is only created when the page is actually visited, while the data object is available when the page is referenced in other pages, e.g. by page controls. A good rule of thumb is to put all functions specific to the page currently being viewed in the controller; only if a function needs to be used in another page should you put it in the data object.
 
 ![](_images/tutorial2_homepage-news.jpg)
 
@@ -397,11 +397,11 @@ An RSS feed is something that no news section should be without. SilverStripe ma
 
 This function creates an RSS feed of all the news articles, and outputs it to the browser. If we go to [http://localhost/your_site_name/news/rss](http://localhost/your_site_name/news/rss) we should see our RSS feed. When there is more to a URL after a page's base URL, "rss" in this case, SilverStripe will call the function with that name on the controller if it exists.
 
-Depending on your browser, you should see something like the picture below. If your browser doesn't support RSS, you will most likely see the XML output instead. For more on RSS, see `[api:RSSFeed]`
+Depending on your browser, you should see something like the picture below. If your browser doesn't support RSS, you will most likely see the XML output instead. For more on RSS, see `[api:RSSFeed]`.
 
 ![](_images/tutorial2_rss-feed.jpg)
 
-Now all we need is to let the user know that our RSS feed exists. Add this function to *ArticleHolder_Controller*:
+Now all we need to do is to let the user know that our RSS feed exists. Add this function to *ArticleHolder_Controller*:
 
 	:::php
 	public function init() {
