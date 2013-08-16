@@ -307,7 +307,7 @@ We can make our templates more modular and easier to maintain by separating comm
 
 We'll separate the display of linked articles as we want to reuse this code later on.
 
-Cut the code between "loop Children" in *ArticleHolder.ss** and replace it with an include statement:
+Cut the code between "loop Children" in *ArticleHolder.ss* and replace it with an include statement:
 
 **themes/simple/templates/Layout/ArticleHolder.ss**
 
