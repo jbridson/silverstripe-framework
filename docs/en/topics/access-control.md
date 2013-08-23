@@ -8,27 +8,24 @@ site you have to figure this stuff out, and it's not entirely obvious.
 There are a number of ways to restrict access in SilverStripe.  In the security tab in the CMS you can create groups
 that have access to certain parts.  The options can be found on the [permissions](/reference/permission) documentation. 
 
-Once you have groups, you can set access for each page for a particular groups.  This can be:
-- anyone
-- any person who is logged in
-- a specific group
+Once you have groups, you can set access for each page for a particular groups.  This can be: Anyone, Any person who is logged in, or A specific group.
 
 It is unclear how this works for data-objects that are not pages.
 
 ## The Security Groups in SilverStripe
 
-In the security tab you can make groups for security.  The way this was intended was as follows (this may be a counter
+In the security tab you can make groups for security.  The way this was intended was as follows (this may be counter
 intuitive):
 
-* employees
-	* marketing
-		* marketing executive
+* employees - *restricted access*
+* marketing - *limited access*
+* marketing executive - *full control*
 
 Thus, the further up the hierarchy you go the MORE privileges you can get.  Similarly, you could have:
 
-* members
-	* coordinators
-		* admins
+* members - *restricted access*
+* coordinators - *limited access*
+* admins - *full control*
 
 Where members have some privileges, coordinators slightly more and administrators the most; having each group inheriting
 privileges from its parent group.     
@@ -42,7 +39,7 @@ the admin screens work)
 
 ### Nuts and bolts -- figuring it out
 
-Here are my notes trying to figure this stuff out. Not really useful unless you're VERY interested in how exactly SS
+Here are my notes on trying to figure this stuff out. Not really useful unless you're VERY interested in how exactly SS
 works.
 
 
