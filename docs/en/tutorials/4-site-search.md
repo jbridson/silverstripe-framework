@@ -67,7 +67,7 @@ is applied via `FulltextSearchable::enable()`
 	}
 
 
-The code populates an array with the data we wish to pass to the template - the search results, query and title of the page. The final line is a little more complicated.
+The code populates an array with the data we wish to pass to the template - the search results, query, and title of the page. The final line is a little more complicated.
 
 When we call a function by its url (eg http://localhost/home/results), SilverStripe will look for a template with the name `PageType_function.ss`. As we are implementing the *results* function on the *Page* page type, we create our
 results page template as *Page_results.ss*. Unfortunately this doesn't work when we are using page types that are
@@ -153,6 +153,6 @@ Then finally add ?flush=1 to the URL and you should see the new template.
 
 ## Summary
 
-This tutorial has demonstrated how easy it is to have full text searching on your site. To add search to a SilverStripe site add a search form, a results page, and you're done!
+This tutorial has demonstrated how easy it is to implement full text search on your site. To add search to a SilverStripe site, all you need to do is add a search form, a results page, and you're done!
 
 [Next Tutorial >>](5-dataobject-relationship-management)
