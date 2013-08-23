@@ -2,7 +2,7 @@
 
 ## Overview
 
-This tutorial explores the relationship and management of [DataObjects](/topics/datamodel#relations). It builds on the [second tutorial](2-extending-a-basic-site) where we learnt how to define
+This tutorial explores the relationship and management of [DataObjects](/topics/datamodel#relations). It builds on the ["Extending a basic site" tutorial](2-extending-a-basic-site) where we learnt how to define
 additional fields on our models, and attach images to them.
 
 ## What are we working towards?
@@ -17,15 +17,15 @@ This table shows some example data we'll be using:
 
  | Project             | Student             | Mentor   	    | 
  | -------             | -------             | -------			  |
- | Developer Toolbar | Jakob,Ofir   | Mark,Sean	|
- | Behaviour Testing  | Michal,Wojtek | Ingo, Sean |
+ | Developer Toolbar | Jakob, Ofir   | Mark, Sean	|
+ | Behaviour Testing  | Michal, Wojtek | Ingo, Sean |
  | Content Personalization | Yuki | Philipp	| 
- | Module Management | Andrew | Marcus,Sam | 
+ | Module Management | Andrew | Marcus, Sam | 
 
 ### Has-One and Has-Many Relationships: Project and Student
 
-A student can have only one project, it'll keep them busy enough.
-But each project can be done by one or more students.
+A student can have only one project (it'll keep them busy enough),
+but each project can be done by one or more students.
 This is called a **one-to-many** relationship.
 Let's create the `Student` and `Project` objects.
 
@@ -114,7 +114,7 @@ But what about creating `Student` records?
 
 Since students are related to a single project, we will
 allow editing them right the on the CMS interface in the `Project` page type.
-We do this through a powerful field called `[GridField](/reference/grid-field)`.
+We do this through a powerful field called [GridField](/reference/grid-field).
 All customization to fields for a page type are managed through a method called
 `getCMSFields()`, so let's add it there:
 
@@ -151,7 +151,7 @@ This creates a tabular field, which lists related student records, one row at a 
 Its empty by default, but you can add new students as required,
 or relate them to the project by typing in the box above the table.
 
-In our case, want to manage those records, edit their details, and add new ones. 
+In our case, we want to manage those records, edit their details, and add new ones. 
 To accomplish this, we have added a specific `[api:GridFieldConfig]`.
 While we could've built the config from scratch, there's several
 preconfigured instances. The `GridFieldConfig_RecordEditor` default configures
@@ -164,27 +164,27 @@ We call `setDisplayFields()` directly on the component responsible for their ren
 	Adding a `GridField` to a page type is a popular way to manage data,
 	but not the only one. If your data requires a dedicated interface
 	with more sophisticated search and management logic, consider
-	using the `[ModelAdmin](reference/modeladmin)` interface instead.
+	using the [ModelAdmin](reference/modeladmin) interface instead.
 </div>
 
 ![tutorial:tutorial5_project_creation.jpg](_images/tutorial5_project_creation.jpg)
 
 Select each `Project` page you have created before, 
-go in the tab panel called "Students", and add all students as required,
-by clicking on the link **Add Student** of your *GridField* table.
+go to the tab panel called "Students", and add all students as required
+by clicking on the link **Add Student** in the *GridField* table.
 
 ![tutorial:tutorial5_addNew.jpg](_images/tutorial5_addNew.jpg)
 
-Once you have added all the students, and selected their projects, it should look a little like this:
+Once you have added all the students and selected their projects, it should look a little like this:
 
 ![tutorial:tutorial5_students.jpg](_images/tutorial5_students.jpg)
 
 ### Many-many relationships: Mentor
 
 Now we have a fairly good picture of how students relate to their projects.
-But students generally have somebody looking them over the shoulder.
-In our case, that's the "mentor". Each project can have many of them,
-and each mentor can be have one or more projects. They're busy guys!
+But students generally have somebody looking over their shoulder.
+In our case, that's the "mentor". Each project can have many mentors,
+and each mentor can have one or more projects (they are busy guys!).
 This is called a *many-many* relationship.
 
 The first step is to create the `Mentor` object and set the relation with the `Project` page type.
@@ -240,7 +240,7 @@ to configure it a bit differently.
 	}
 
 The important difference to our student management UI is the usage
-of `$this->Mentor()` (rather than `Mentor::get()`). It will limit
+of `$this->Mentors()` (rather than `Mentor::get()`). It will limit
 the list of records to those related through the many-many relationship.
 
 In the CMS, open one of your `Project` pages and select the "Mentors" tab. 
@@ -258,7 +258,7 @@ This is the definition of a **many-to-many** relation.
 
 ## Website Display
 
-Now that we have created all the *Page* and *DataObject* classes necessary and the relational tables to manage the [relations](/topics/datamodel#relations) between them, we would like to see these relations on the website. We will see in this section how to display all these relations, 
+Now that we have created all the *Page* and *DataObject* classes necessary and the relational tables to manage the [relations](/topics/datamodel#relations) between them, we would like to see these relations on the website. We will see in this section not only how to display all these relations, 
 but also how to create a template for a *DataObject*.
 
 For every kind of *Page* or *DataObject*, you can access to their relations thanks to the **control** loop.
@@ -266,12 +266,12 @@ For every kind of *Page* or *DataObject*, you can access to their relations than
 ### Projects Overview Template
 
 We'll start by creating a `ProjectsHolder` template,
-which lists all projects, and condenses their
+which lists all projects and condenses their
 student and mentor relationships into a single line.
 You'll notice that there's no difference between
 accessing a "has-many" and "many-many" relationship
 in the template loops: To the template, its just
-a named list of object.
+a named list of objects.
 
 ![tutorial:tutorial5_projects_table.jpg](_images/tutorial5_projects_table.jpg)
 
@@ -316,13 +316,13 @@ a named list of object.
 		</article>
 	</div>
 
-Navigate to the holder page through your website navigation,
+Navigate to the holder page through your website navigation
 or the "Preview" feature in the CMS. You should see a list of all projects now.
 Add `?flush=1` to the page URL to force a refresh of the template cache.
 
-To get a list of all projects, we've looped through the "Children" list,
+To get a list of all projects we've looped through the "Children" list,
 which is a relationship we didn't define explictly.
-It is provided to us by the parent implementation,
+It is provided to us by the parent implementation
 since projects are nothing other than children pages in the standard page hierarchy.
 
 ### Project Detail Template
@@ -373,7 +373,7 @@ or navigate to it through the submenu provided by the theme.
 
 You might have noticed that we duplicate the same template code
 between both views when it comes to displaying the details
-on students and mentors. We'll fix this for students,
+on students and mentors. We'll fix this for students
 by introducing a new template for them.
 
 **themes/simple/templates/Includes/StudentInfo.ss**
@@ -397,8 +397,8 @@ With this pattern, you can increase code reuse across templates.
 
 ## Summary
 
-This tutorial has demonstrated how you can manage data with
-different types of relations between in the CMS, 
+This tutorial has demonstrated how, in the CMS, you can manage data with
+different types of relationships, 
 and how you can display this data on your website.
 We illustrated how the powerful `Page` class can be useful to structure
 your own content, and how we can correlate it to more
